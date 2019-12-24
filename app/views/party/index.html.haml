@@ -1,20 +1,26 @@
-%h1= ENV['APP_NAME']
-%h2 Parties
-%table{ border: '1px' }
-  %tr
-    %th ID
-    %th UID
-    %th Firstname
-    %th Lastname
-    %th Date of birth
-  - @parties.each do |party|
+.py-5.text-center
+  %h1= ENV['APP_NAME']
+  %h2 Parties
+  %table.table{ border: '1px' }
     %tr
-      %th= party.id
-      %th= party.uid
-      %th= party.first_name
-      %th= party.last_name
-      %th= party.date_of_birth
+      %th ID
+      %th UID
+      %th Firstname
+      %th Lastname
+      %th Date of birth
+      %th 
+    - @parties.each do |party|
+      %tr
+        %td= party.id
+        %td= party.uid
+        %td= party.first_name
+        %td= party.last_name
+        %td= party.date_of_birth
+        %td
+          %button.btn.btn-sm.btn-primary{ type: 'button' } Change name
+          %button.btn.btn-sm.btn-primary{ type: 'button' } Change DOB
 
+  =button_to 'Create new party', { controller: 'party', action: 'create' }, { class: 'btn btn-sm btn-primary' }
 
 
 
