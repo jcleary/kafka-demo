@@ -6,6 +6,16 @@ x-karafka-server: &karafka-server
     - .:/myapp
   command: bash -c 'rm -f tmp/pids/karafka_server_`printenv APP_ID`.pid && bundle exec karafka server -p tmp/pids/karafka_server_`printenv APP_ID`.pid'
   depends_on:
+    - db
+    - kafka
+
+x-web: &web
+  build: .
+  command: bash -c "rm -f tmp/pids/server`printenv APP_ID`.pid && bundle exec rails s -p 3000 -b '0.0.0.0' -P tmp/pids/server`printenv APP_ID`.pid"
+  volumes:
+    - .:/myapp
+  depends_on:
+    - db
     - kafka
 
 services:
@@ -60,43 +70,26 @@ services:
       APP_ID: 3 
 
   web_1:
-    build: .
-    command: bash -c "rm -f tmp/pids/server1.pid && bundle exec rails s -p 3000 -b '0.0.0.0' -P tmp/pids/server1.pid"
-    volumes:
-      - .:/myapp
+    <<: *web
     ports:
       - "3000:3000"
-    depends_on:
-      - db
-      - kafka
     environment:
       - APP_NAME=Legacy Monolith
       - APP_ID=1
 
   web_2:
-    build: .
-    command: bash -c "rm -f tmp/pids/server2.pid && bundle exec rails s -p 3001 -b '0.0.0.0' -P tmp/pids/server2.pid"
-    volumes:
-      - .:/myapp
+    <<: *web
     ports:
-      - "3001:3001"
-    depends_on:
-      - db
-      - kafka
+      - "3001:3000"
     environment:
       - APP_NAME=Consumer Web Application
       - APP_ID=2
 
   web_3:
-    build: .
-    command: bash -c "rm -f tmp/pids/server3.pid && bundle exec rails s -p 3002 -b '0.0.0.0' -P tmp/pids/server3.pid"
-    volumes:
-      - .:/myapp
+    <<: *web
     ports:
-      - "3002:3002"
-    depends_on:
-      - db
-      - kafka
+      - "3002:3000"
     environment:
       - APP_NAME=Reporting Database
       - APP_ID=3
+
