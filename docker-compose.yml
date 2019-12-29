@@ -35,8 +35,35 @@ services:
       - kafka
       - zookeeper
 
-  redis:
-    image: redis
+  karafka_server_1:
+    build: .
+    volumes:
+      - .:/myapp
+    command: bash -c "rm -f tmp/pids/karafka_server_1.pid && bundle exec karafka server -p tmp/pids/karafka_server_1.pid"
+    environment:
+      APP_ID: 1 
+    depends_on:
+      - kafka
+
+  karafka_server_2:
+    build: .
+    volumes:
+      - .:/myapp
+    command: bash -c "rm -f tmp/pids/karafka_server_2.pid && bundle exec karafka server -p tmp/pids/karafka_server_2.pid"
+    environment:
+      APP_ID: 2 
+    depends_on:
+      - kafka
+
+  karafka_server_3:
+    build: .
+    volumes:
+      - .:/myapp
+    command: bash -c "rm -f tmp/pids/karafka_server_3.pid && bundle exec karafka server -p tmp/pids/karafka_server_3.pid"
+    environment:
+      APP_ID: 3 
+    depends_on:
+      - kafka
 
   web_1:
     build: .
@@ -48,7 +75,6 @@ services:
     depends_on:
       - db
       - kafka
-      - redis
     environment:
       - DB_DATABASE=app_1
       - APP_NAME=Integro
