@@ -19,7 +19,6 @@ gem 'haml'
 gem 'bootstrap', '~> 4.4.1'
 
 gem 'karafka', '~> 1.3', '>= 1.3.1'
-gem 'karafka-sidekiq-backend'
 gem 'faker', '~> 1.6', '>= 1.6.6'
 
 # Use CoffeeScript for .coffee assets and views
