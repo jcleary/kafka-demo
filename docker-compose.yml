@@ -70,7 +70,6 @@ services:
       - db
       - kafka
     environment:
-      - DB_DATABASE=app_1
       - APP_NAME=Legacy Monolith
       - APP_ID=1
 
@@ -85,7 +84,6 @@ services:
       - db
       - kafka
     environment:
-      - DB_DATABASE=app_2
       - APP_NAME=Consumer Web Application
       - APP_ID=2
 
@@ -100,6 +98,5 @@ services:
       - db
       - kafka
     environment:
-      - DB_DATABASE=app_3
       - APP_NAME=Reporting Database
       - APP_ID=3
