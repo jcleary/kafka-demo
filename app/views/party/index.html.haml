@@ -8,6 +8,8 @@
       %th Firstname
       %th Lastname
       %th Date of birth
+      %th Created
+      %th Modified
       %th 
     - @parties.each do |party|
       %tr
@@ -16,9 +18,10 @@
         %td= party.first_name
         %td= party.last_name
         %td= party.date_of_birth
+        %td= party.created_at
+        %td= party.updated_at
         %td
-          %button.btn.btn-sm.btn-primary{ type: 'button' } Change name
-          %button.btn.btn-sm.btn-primary{ type: 'button' } Change DOB
+          =link_to 'Change', party_change_path(party), { class: 'btn btn-sm btn-primary' }
 
   =button_to 'Create new party', { controller: 'party', action: 'create' }, { class: 'btn btn-sm btn-primary' }
 
