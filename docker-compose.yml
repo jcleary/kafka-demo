@@ -1,13 +1,5 @@
 version: '3.4'
 
-x-karafka-server: &karafka-server
-  build: .
-  volumes:
-    - .:/myapp
-  command: bash -c 'rm -f tmp/pids/karafka_server_`printenv APP_ID`.pid && bundle exec karafka server -p tmp/pids/karafka_server_`printenv APP_ID`.pid'
-  depends_on:
-    - db
-    - kafka
 
 x-web: &web
   build: .
@@ -17,6 +9,10 @@ x-web: &web
   depends_on:
     - db
     - kafka
+
+x-karafka-server: &karafka-server
+  <<: *web
+  command: bash -c 'rm -f tmp/pids/karafka_server_`printenv APP_ID`.pid && bundle exec karafka server -p tmp/pids/karafka_server_`printenv APP_ID`.pid'
 
 services:
   db:
