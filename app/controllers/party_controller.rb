@@ -1,6 +1,6 @@
 class PartyController < ApplicationController
   def index
-    @parties = Party.all
+    @parties = Party.all.order(:uid)
   end
 
   def create
