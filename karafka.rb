@@ -32,22 +32,7 @@ class KarafkaApp < Karafka::App
   consumer_groups.draw do
     topic :party do
       consumer PartyConsumer
-      batch_consuming false
     end
-
-    # topic :example do
-    #   consumer ExampleConsumer
-    # end
-
-    # consumer_group :bigger_group do
-    #   topic :test do
-    #     consumer TestConsumer
-    #   end
-    #
-    #   topic :test2 do
-    #     consumer Test2Consumer
-    #   end
-    # end
   end
 end
 
