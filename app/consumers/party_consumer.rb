@@ -4,6 +4,7 @@ class PartyConsumer < ApplicationConsumer
     party.broadcast_changes = false
     party.attributes = party_params
     party.save!
+    Rails.logger.info "Processing params: #{party_params.to_s}"
   end
 
   def party_params
