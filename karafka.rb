@@ -56,4 +56,11 @@ Karafka.monitor.subscribe('app.initialized') do
   # initialization
 end
 
+Karafka.monitor.subscribe('connection.listener.before_fetch_loop') do |event|
+  # this will cause the consumer to reprocess all messages ever time it restarts
+  # which is useful for demo, but probably not what you would want in production
+  client = event[:client]
+  client.seek('party', 0, 0)
+end
+
 KarafkaApp.boot!

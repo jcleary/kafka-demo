@@ -1,6 +1,5 @@
 version: '3.4'
 
-
 x-web: &web
   build: .
   command: bash -c "rm -f tmp/pids/server`printenv APP_ID`.pid && bundle exec rails s -p 3000 -b '0.0.0.0' -P tmp/pids/server`printenv APP_ID`.pid"
