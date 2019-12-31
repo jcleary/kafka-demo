@@ -22,7 +22,7 @@ class PartyController < ApplicationController
     when 1
       party.first_name = Faker::Name.first_name
     when 2
-      last_name = Faker::Name.last_name
+      party.last_name = Faker::Name.last_name
     end
 
     party.save!
